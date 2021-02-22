@@ -1,0 +1,32 @@
+.profile__add-button {
+  background-color: transparent;
+  border: 2px solid #fff;
+  padding: 12px 0;
+  max-width: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__add-button {
+    grid-row: 2/2;
+    grid-column: 2/-1;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__add-button {
+    max-width: 100%;
+    grid-row: 3/3;
+    grid-column: 1/-1;
+  }
+}
