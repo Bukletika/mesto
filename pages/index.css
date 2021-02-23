@@ -14,12 +14,11 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
-@import url(../blocks/profile/__edit-button/_type_safari/profile__edit-button_type_safari.css);
+@import url(../blocks/profile/__edit-button/_fix/profile__edit-button_fix_browser.css);
 @import url(../blocks/profile/__edit-button-img/profile__edit-button-img.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 @import url(../blocks/profile/__add-button-img/profile__add-button-img.css);
 @import url(../blocks/profile/__info/profile__info.css);
-
 
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__list/elements__list.css);

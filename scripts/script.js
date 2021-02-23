@@ -54,9 +54,9 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 
 
-// 3. Исправление выравнивания по базовой линии для браузера Safari
+// 3. Исправление выравнивания по базовой линии для браузера Safari и Firefox
 let browser = navigator.vendor;
 
-if (browser == 'Apple Computer, Inc.') {
-  document.querySelector('.profile__edit-button').classList.add('profile__edit-button_type_safari');
+if (browser == 'Apple Computer, Inc.' || browser == '') {
+  document.querySelector('.profile__edit-button').classList.add('profile__edit-button_fix_browser');
 }
