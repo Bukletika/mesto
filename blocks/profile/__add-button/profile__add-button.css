@@ -16,6 +16,10 @@
   opacity: .6;
 }
 
+.profile__add-button:focus {
+  outline: none;
+}
+
 @media screen and (max-width: 768px) {
   .profile__add-button {
     grid-row: 2/2;
