@@ -51,3 +51,12 @@ function formSubmitHandler (evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
+
+
+
+// 3. Исправление выравнивания по базовой линии для браузера Safari
+let browser = navigator.vendor;
+
+if (browser == 'Apple Computer, Inc.') {
+  document.querySelector('.profile__edit-button').classList.add('profile__edit-button_type_safari');
+}

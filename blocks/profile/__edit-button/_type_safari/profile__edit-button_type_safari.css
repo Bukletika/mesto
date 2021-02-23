@@ -1,0 +1,10 @@
+.profile__edit-button_type_safari {
+  align-self: center;
+  margin-bottom: -5px;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__edit-button_type_safari {
+    margin-bottom: 0;
+  }
+}
