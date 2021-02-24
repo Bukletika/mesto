@@ -9,10 +9,6 @@ let formElement = document.querySelector('.form');// Находим форму �
 let nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
 let jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
 
-profileTitle.textContent = 'Жак-Ив Кусто'; // Первоначальный текст для input попадает через javascript
-profileSubtitle.textContent = 'Исследователь океана'; // Первоначальный текст для input попадает через javascript
-
-
 // Функция копирования текущих значений полей профиля со страницы сайта в поля формы
 function getFormCurrentParams() {
   nameInput.value = profileTitle.textContent;
@@ -22,7 +18,6 @@ function getFormCurrentParams() {
 // Функция открытия profile popup
 function toggleProfilePopup() {
   profilePopup.classList.toggle('popup_opened');
-
   // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup
   if (profilePopup.classList.contains('popup_opened')) {
     getFormCurrentParams();

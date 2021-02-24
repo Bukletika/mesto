@@ -27,8 +27,8 @@
         <img class="profile__img" src="./images/profile.jpg" alt="Аватар пользователя">
 
         <div class="profile__info">
-          <h1 class="profile__title"></h1>
-          <p class="profile__subtitle"></p>
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <p class="profile__subtitle">Исследователь океана</p>
           <button class="profile__edit-button" id="profile-edit" type="button" title="Редактировать профиль"></button>
         </div>
 
@@ -37,6 +37,7 @@
       </section>
 
       <section class="elements">
+
         <ul class="elements__list">
           <li class="elements__item element">
             <img class="element__image" src="./images/london.jpg" alt="Лондон">
@@ -80,9 +81,8 @@
               <button class="element__like" type="button"></button>
             </div>
           </li>
-
-
         </ul>
+
       </section>
 
     </main>
@@ -90,6 +90,7 @@
     <footer class="footer page__footer">
       <p class="footer__copyright">© 2021. Антон Седин</p>
     </footer>
+
   </div>
 
   <div class="popup">
@@ -98,8 +99,8 @@
       <form class="form" name="edit-profile">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__author">
-          <input class="form__item form__item_el_name" name="profile-name" type="text" placeholder="Имя" required value="Жак-Ив Кусто">
-          <input class="form__item form__item_el_about" name="profile-about" type="text" placeholder="О себе" required value="Исследователь океана">
+          <input class="form__item form__item_el_name" name="profile-name" type="text" placeholder="Имя" required>
+          <input class="form__item form__item_el_about" name="profile-about" type="text" placeholder="О себе" required>
         </fieldset>
         <button class="form__button" type="submit">Сохранить</button>
       </form>

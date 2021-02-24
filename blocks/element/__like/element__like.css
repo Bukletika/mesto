@@ -9,6 +9,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url(./like-disabled.svg);
+  transition: .3s opacity ease;
 }
 
 .element__like:hover {
