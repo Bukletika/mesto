@@ -1,62 +1,42 @@
-// 1. Настройка окна popup
-let profileEditButton = document.querySelector('#profile-edit');
-let profilePopup = document.querySelector('.popup-profile');
-let profileCloseButton = profilePopup.querySelector('.popup__close');
+let profileEditButton = document.querySelector('#profile-edit'); // кнопка вызова окна profile popup
 
-function toggleProfilePopup(event) {
-  event.preventDefault();
+let profilePopup = document.querySelector('.popup'); // profile popup
+let profileCloseButton = profilePopup.querySelector('.popup__close'); // кнопка закрытия окна profile popup
+let profileTitle = document.querySelector('.profile__title'); // элемент в DOM, куда заносим имя
+let profileSubtitle = document.querySelector('.profile__subtitle'); // элементв DOM, куда заносим текст о себе
+
+let formElement = document.querySelector('.form');// Находим форму в DOM
+let nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
+let jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
+
+profileTitle.textContent = 'Жак-Ив Кусто'; // Первоначальный текст для input попадает через javascript
+profileSubtitle.textContent = 'Исследователь океана'; // Первоначальный текст для input попадает через javascript
+
+
+// Функция копирования текущих значений полей профиля со страницы сайта в поля формы
+function getFormCurrentParams() {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+}
+
+// Функция открытия profile popup
+function toggleProfilePopup() {
   profilePopup.classList.toggle('popup_opened');
+
+  // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup
+  if (profilePopup.classList.contains('popup_opened')) {
+    getFormCurrentParams();
+  }
 }
 
-profileEditButton.addEventListener('click', toggleProfilePopup);
-profileCloseButton.addEventListener('click', toggleProfilePopup);
-
-// Закрытие по клику на затемненную область
-profilePopup.addEventListener('click', toggleProfilePopup);
-document.querySelector('.popup__container').addEventListener('click', function (event) {
-  event.stopPropagation();
-});
-
-
-// 2. Настройка передачи данных пользователя
-
-// Находим форму в DOM
-let formElement = document.querySelector('.form_edit_author');
-// Находим поля формы в DOM
-let nameInput = formElement.querySelector('.form__item_el_name');
-let jobInput = formElement.querySelector('.form__item_el_about');
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
+// Функция обработки формы
 function formSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                                // Так мы можем определить свою логику отправки.
-                                                // О том, как это делать, расскажем позже.
-
-    // Получите значение полей jobInput и nameInput из свойства value
-    let nameInputValue = nameInput.value;
-    let jobInputValue = jobInput.value;
-
-    // Выберите элементы, куда должны быть вставлены значения полей
-    let profileTitle = document.querySelector('.profile__title');
-    let profileSubtitle = document.querySelector('.profile__subtitle');
-
-    // Вставьте новые значения с помощью textContent
-    profileTitle.textContent = nameInputValue;
-    profileSubtitle.textContent = jobInputValue;
-
-    toggleProfilePopup(evt);
+  evt.preventDefault();
+  profileTitle.textContent = nameInput.value;
+  profileSubtitle.textContent = jobInput.value;
+  toggleProfilePopup(evt);
 }
 
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
-
-
-
-// 3. Исправление выравнивания по базовой линии для браузера Safari и Firefox
-let browser = navigator.vendor;
-
-if (browser == 'Apple Computer, Inc.' || browser == '') {
-  document.querySelector('.profile__edit-button').classList.add('profile__edit-button_fix_browser');
-}
+profileEditButton.addEventListener('click', toggleProfilePopup); // Обработчик клика на кнопку "Изменить окно профиля"
+profileCloseButton.addEventListener('click', toggleProfilePopup); // Обработчик клика на кнопку "Закрыть окно профиля"
+formElement.addEventListener('submit', formSubmitHandler); // Обработчик отправки формы

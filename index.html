@@ -24,21 +24,15 @@
     <main class="content">
       <section class="profile">
 
-        <div class="profile__avatar">
-          <img class="profile__img" src="./images/profile.jpg" alt="Аватар пользователя">
-        </div>
+        <img class="profile__img" src="./images/profile.jpg" alt="Аватар пользователя">
 
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <p class="profile__subtitle">Исследователь океана</p>
-          <button class="profile__edit-button" id="profile-edit" type="button" title="Редактировать профиль">
-            <img class="profile__edit-button-img" src="./images/edit-button.svg" alt="Редактировать профиль">
-          </button>
+          <h1 class="profile__title"></h1>
+          <p class="profile__subtitle"></p>
+          <button class="profile__edit-button" id="profile-edit" type="button" title="Редактировать профиль"></button>
         </div>
 
-        <button class="profile__add-button" type="button" title="Добавить карточку">
-          <img class="profile__add-button-img" src="./images/add-button.svg" alt="Добавить карточку">
-        </button>
+        <button class="profile__add-button" type="button" title="Добавить карточку"></button>
 
       </section>
 
@@ -48,42 +42,42 @@
             <img class="element__image" src="./images/london.jpg" alt="Лондон">
             <div class="element__info">
               <h2 class="element__title">Лондон</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
           <li class="elements__item element">
             <img class="element__image" src="./images/newyork.jpg" alt="Нью-Йорк">
             <div class="element__info">
               <h2 class="element__title">Нью-Йорк</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
           <li class="elements__item element">
             <img class="element__image" src="./images/praha.jpg" alt="Прага">
             <div class="element__info">
               <h2 class="element__title">Прага</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
           <li class="elements__item element">
             <img class="element__image" src="./images/venecia.jpg" alt="Венеция">
             <div class="element__info">
               <h2 class="element__title">Венеция</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
           <li class="elements__item element">
             <img class="element__image" src="./images/barselona.jpg" alt="Барселона">
             <div class="element__info">
               <h2 class="element__title">Барселона</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
           <li class="elements__item element">
             <img class="element__image" src="./images/paris.jpg" alt="Париж">
             <div class="element__info">
               <h2 class="element__title">Париж</h2>
-              <div class="element__like element__like_disabled"></div>
+              <button class="element__like" type="button"></button>
             </div>
           </li>
 
@@ -98,18 +92,16 @@
     </footer>
   </div>
 
-  <div class="popup popup-profile">
+  <div class="popup">
     <div class="popup__container">
       <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
-      <form class="form form_edit_author">
+      <form class="form" name="edit-profile">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__author">
           <input class="form__item form__item_el_name" name="profile-name" type="text" placeholder="Имя" required value="Жак-Ив Кусто">
           <input class="form__item form__item_el_about" name="profile-about" type="text" placeholder="О себе" required value="Исследователь океана">
         </fieldset>
-        <fieldset class="form__handlers">
-          <button class="form__button" type="submit">Сохранить</button>
-        </fieldset>
+        <button class="form__button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
