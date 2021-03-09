@@ -1,3 +1,61 @@
+// Начальный массив с карточками
+const initialCards = [
+  {
+    name: 'Лондон',
+    link: './images/london.jpg'
+  },
+  {
+    name: 'Нью-Йорк',
+    link: './images/newyork.jpg'
+  },
+  {
+    name: 'Прага',
+    link: './images/praha.jpg'
+  },
+  {
+    name: 'Венеция',
+    link: './images/venecia.jpg'
+  },
+  {
+    name: 'Барселона',
+    link: './images/barselona.jpg'
+  },
+  {
+    name: 'Париж',
+    link: './images/paris.jpg'
+  }
+];
+
+const elementsContainer = document.querySelector('.elements__list');
+const templateElement = document.querySelector('.template');
+
+
+// находит template и клонирует его код в новый элемент, вставляет данные из исходного массива элементов
+function createElementDomNode (item) {
+  const newCard = templateElement.content.cloneNode(true);
+  const name = newCard.querySelector('.element__title');
+  name.textContent = item.name;
+
+  const image = newCard.querySelector('.element__image');
+  image.src = item.link;
+  image.alt = item.name;
+
+  return newCard;
+}
+
+// получить результирующий html код для списка карточек
+function renderList() {
+ const result = initialCards.map(function(item){
+  const newElement = createElementDomNode(item);
+  return newElement;
+ });
+
+ elementsContainer.append(...result);
+}
+
+renderList();
+
+
 // 1. Настройка окна popup
 let profileEditButton = document.querySelector('#profile-edit');
 let profilePopup = document.querySelector('.popup-profile');
