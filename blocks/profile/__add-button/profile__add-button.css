@@ -1,7 +1,6 @@
 .profile__add-button {
   background-color: transparent;
   border: 2px solid #fff;
-  padding: 12px 0;
   max-width: 150px;
   width: 100%;
   display: flex;
@@ -10,6 +9,13 @@
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 2px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 22px 22px;
+  background-image: url(../../../images/add-button.svg);
+  height: 50px;
+  padding: 0;
+  transition: .3s opacity ease;
 }
 
 .profile__add-button:hover {
@@ -32,6 +38,6 @@
     max-width: 100%;
     grid-row: 3/3;
     grid-column: 1/-1;
-    padding: 15px 0;
+    background-size: 16px 16px;
   }
 }
