@@ -32,56 +32,13 @@
           <button class="profile__edit-button" id="profile-edit" type="button" title="Редактировать профиль"></button>
         </div>
 
-        <button class="profile__add-button" type="button" title="Добавить карточку"></button>
+        <button class="profile__add-button" id="card-add" type="button" title="Добавить карточку"></button>
 
       </section>
 
       <section class="elements">
 
-        <ul class="elements__list">
-          <li class="elements__item element">
-            <img class="element__image" src="./images/london.jpg" alt="Лондон">
-            <div class="element__info">
-              <h2 class="element__title">Лондон</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item element">
-            <img class="element__image" src="./images/newyork.jpg" alt="Нью-Йорк">
-            <div class="element__info">
-              <h2 class="element__title">Нью-Йорк</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item element">
-            <img class="element__image" src="./images/praha.jpg" alt="Прага">
-            <div class="element__info">
-              <h2 class="element__title">Прага</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item element">
-            <img class="element__image" src="./images/venecia.jpg" alt="Венеция">
-            <div class="element__info">
-              <h2 class="element__title">Венеция</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item element">
-            <img class="element__image" src="./images/barselona.jpg" alt="Барселона">
-            <div class="element__info">
-              <h2 class="element__title">Барселона</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-          <li class="elements__item element">
-            <img class="element__image" src="./images/paris.jpg" alt="Париж">
-            <div class="element__info">
-              <h2 class="element__title">Париж</h2>
-              <button class="element__like" type="button"></button>
-            </div>
-          </li>
-        </ul>
+        <ul class="elements__list"></ul>
 
       </section>
 
@@ -93,10 +50,10 @@
 
   </div>
 
-  <div class="popup">
+  <div class="popup profile-popup">
     <div class="popup__container">
       <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
-      <form class="form" name="edit-profile">
+      <form class="form form-profile" name="edit-profile">
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__author">
           <input class="form__item form__item_el_name" name="profile-name" type="text" placeholder="Имя" required>
@@ -106,6 +63,43 @@
       </form>
     </div>
   </div>
+
+  <div class="popup card-popup">
+    <div class="popup__container">
+      <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
+      <form class="form form-card" name="edit-card">
+        <h2 class="form__heading">Новое место</h2>
+        <fieldset class="form__card">
+          <input class="form__item form__item_el_title" name="card-title" type="text" placeholder="Название" required>
+          <input class="form__item form__item_el_link" name="card-link" type="text" placeholder="Ссылка на картинку" required>
+        </fieldset>
+        <button class="form__button" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup image-popup">
+    <div class="popup__container popup__container_width_full">
+      <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
+
+      <figure class="image-popup__figure">
+        <img class="image-popup__image" src="" alt="">
+        <figcaption class="image-popup__caption"></figcaption>
+      </figure>
+
+    </div>
+  </div>
+
+  <template class="template">
+    <li class="elements__item element">
+      <button class="element__trash"></button>
+      <img class="element__image" src="" alt="">
+      <div class="element__info">
+        <h2 class="element__title"></h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </li>
+  </template>
 
   <script src="./scripts/script.js"></script>
 </body>
