@@ -42,6 +42,12 @@ function createElementDomNode (item) {
   image.src = item.link;
   image.alt = item.name;
 
+  newCard.querySelector('.element__like').addEventListener('click', function(evt){
+    evt.target.classList.toggle('element__like_active');
+  });
+
+
+
   return newCard;
 }
 
@@ -112,9 +118,6 @@ function formSubmitHandler (evt) {
 function formCardHandler (evt) {
   evt.preventDefault();
 
-
-
-
   const newCard =  createElementDomNode ({name: cardTitle.value, link: cardLink.value});
 
   elementsContainer.prepend(newCard);
@@ -122,6 +125,7 @@ function formCardHandler (evt) {
 
   togglePopup(cardPopup);
 }
+
 
 
 
@@ -135,3 +139,6 @@ cardCloseButton.addEventListener('click', function() {togglePopup(cardPopup)}); 
 
 formElement.addEventListener('submit', formSubmitHandler); // Обработчик отправки формы
 formCard.addEventListener('submit', formCardHandler);
+
+
+
