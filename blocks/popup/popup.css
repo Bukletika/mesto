@@ -7,5 +7,8 @@
   left: 0;
   bottom: 0;
   right: 0;
-  display: none;
+  display: flex;
+  transition: visibility .3s linear, opacity .3s linear;
+  opacity: 0;
+  visibility: hidden;
 }
