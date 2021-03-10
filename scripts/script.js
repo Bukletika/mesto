@@ -32,6 +32,10 @@ const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
 
 
+let imagePopup = document.querySelector('.image-popup'); // image popup
+let imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
+
+
 // Находит template и клонирует его код в новый элемент, вставляет данные из исходного массива элементов
 function createElementDomNode (item) {
   const newCard = templateElement.content.cloneNode(true);
@@ -46,7 +50,16 @@ function createElementDomNode (item) {
     evt.target.classList.toggle('element__like_active');
   });
 
+  newCard.querySelector('.element__trash').addEventListener('click', function(evt){
+    evt.target.closest('.elements__item').remove();
+  });
 
+  newCard.querySelector('.element__image').addEventListener('click', function(evt){
+    imagePopup.querySelector('.image-popup__image').src = image.src;
+    imagePopup.querySelector('.image-popup__image').alt = image.alt;
+    imagePopup.querySelector('.image-popup__caption').innerHTML = image.alt;
+    togglePopup(imagePopup);
+  });
 
   return newCard;
 }
@@ -136,6 +149,8 @@ profileCloseButton.addEventListener('click', function() {togglePopup(profilePopu
 
 cardAddButton.addEventListener('click', function() {togglePopup(cardPopup)}); // Обработчик клика на кнопку "Изменить окно карточки"
 cardCloseButton.addEventListener('click', function() {togglePopup(cardPopup)}); // Обработчик клика на кнопку "Закрыть окно карточки"
+
+imageCloseButton.addEventListener('click', function() {togglePopup(imagePopup)}); // Обработчик клика на кнопку "Закрыть окно изображения"
 
 formElement.addEventListener('submit', formSubmitHandler); // Обработчик отправки формы
 formCard.addEventListener('submit', formCardHandler);
