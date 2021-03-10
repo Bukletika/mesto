@@ -31,9 +31,8 @@ const initialCards = [
 const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
 
-
-let imagePopup = document.querySelector('.image-popup'); // image popup
-let imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
+const imagePopup = document.querySelector('.image-popup'); // image popup
+const imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
 
 
 // Находит template и клонирует его код в новый элемент, вставляет данные из исходного массива элементов
@@ -57,7 +56,7 @@ function createElementDomNode (item) {
   newCard.querySelector('.element__image').addEventListener('click', function(evt){
     imagePopup.querySelector('.image-popup__image').src = image.src;
     imagePopup.querySelector('.image-popup__image').alt = image.alt;
-    imagePopup.querySelector('.image-popup__caption').innerHTML = image.alt;
+    imagePopup.querySelector('.image-popup__caption').textContent = image.alt;
     togglePopup(imagePopup);
   });
 
@@ -74,31 +73,31 @@ function renderList() {
  elementsContainer.append(...result);
 }
 
-
+renderList();
 //--------------------------------------------------------------------------------
 
 
 
 // ОБРАБОТКА ОКОН POPUP
-let profileEditButton = document.querySelector('#profile-edit'); // кнопка вызова окна редактирования профиля
-let cardAddButton = document.querySelector('#card-add'); // кнопка вызова окна добавления новой карточки
+const profileEditButton = document.querySelector('#profile-edit'); // кнопка вызова окна редактирования профиля
+const cardAddButton = document.querySelector('#card-add'); // кнопка вызова окна добавления новой карточки
 
-let profilePopup = document.querySelector('.profile-popup'); // profile popup
-let profileCloseButton = profilePopup.querySelector('.popup__close'); // кнопка закрытия окна profile popup
-let profileTitle = document.querySelector('.profile__title'); // элемент в DOM, куда заносим имя
-let profileSubtitle = document.querySelector('.profile__subtitle'); // элементв DOM, куда заносим текст о себе
+const profilePopup = document.querySelector('.profile-popup'); // profile popup
+const profileCloseButton = profilePopup.querySelector('.popup__close'); // кнопка закрытия окна profile popup
+const profileTitle = document.querySelector('.profile__title'); // элемент в DOM, куда заносим имя
+const profileSubtitle = document.querySelector('.profile__subtitle'); // элементы DOM, куда заносим текст о себе
 
 
-let cardPopup = document.querySelector('.card-popup'); // card popup
-let cardCloseButton = cardPopup.querySelector('.popup__close'); // кнопка закрытия окна карточки
+const cardPopup = document.querySelector('.card-popup'); // card popup
+const cardCloseButton = cardPopup.querySelector('.popup__close'); // кнопка закрытия окна карточки
 
-let formCard = document.querySelector('.form-card');// Находим форму в DOM
-let cardTitle = formCard.querySelector('.form__item_el_title');
-let cardLink = formCard.querySelector('.form__item_el_link');
+const formCard = document.querySelector('.form-card');// Находим форму в DOM
+const cardTitle = formCard.querySelector('.form__item_el_title');
+const cardLink = formCard.querySelector('.form__item_el_link');
 
-let formElement = document.querySelector('.form-profile');// Находим форму в DOM
-let nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
-let jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
+const formElement = document.querySelector('.form-profile');// Находим форму в DOM
+const nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
+const jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
 
 
 // Функция копирования текущих значений полей профиля со страницы сайта в поля формы
@@ -107,13 +106,12 @@ function getFormCurrentParams() {
   jobInput.value = profileSubtitle.textContent;
 }
 
-// Функция открытия profile popup
-
+// Функция открытия popup окон
 function togglePopup(selectPopup) {
   selectPopup.classList.toggle('popup_opened');
   cardTitle.value = '';
   cardLink.value = '';
-  // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup
+  // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup profile
   if (profilePopup.classList.contains('popup_opened')) {
     getFormCurrentParams();
   }
@@ -130,19 +128,11 @@ function formSubmitHandler (evt) {
 //Функция обработки формы добавления новой карточки
 function formCardHandler (evt) {
   evt.preventDefault();
-
   const newCard =  createElementDomNode ({name: cardTitle.value, link: cardLink.value});
-
   elementsContainer.prepend(newCard);
-
-
   togglePopup(cardPopup);
 }
 
-
-
-
-renderList();
 
 profileEditButton.addEventListener('click', function() {togglePopup(profilePopup)}); // Обработчик клика на кнопку "Изменить окно профиля"
 profileCloseButton.addEventListener('click', function() {togglePopup(profilePopup)}); // Обработчик клика на кнопку "Закрыть окно профиля"
@@ -153,7 +143,7 @@ cardCloseButton.addEventListener('click', function() {togglePopup(cardPopup)}); 
 imageCloseButton.addEventListener('click', function() {togglePopup(imagePopup)}); // Обработчик клика на кнопку "Закрыть окно изображения"
 
 formElement.addEventListener('submit', formSubmitHandler); // Обработчик отправки формы
-formCard.addEventListener('submit', formCardHandler);
+formCard.addEventListener('submit', formCardHandler); // Обработчик формы добавления новой карточки
 
 
 
