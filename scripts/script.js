@@ -1,33 +1,3 @@
-// ОБРАБОТКА НАЧАЛЬНОГО МАССИВА
-
-// Начальный массив с карточками
-const initialCards = [
-  {
-    name: 'Лондон',
-    link: './images/london.jpg'
-  },
-  {
-    name: 'Нью-Йорк',
-    link: './images/newyork.jpg'
-  },
-  {
-    name: 'Прага',
-    link: './images/praha.jpg'
-  },
-  {
-    name: 'Венеция',
-    link: './images/venecia.jpg'
-  },
-  {
-    name: 'Барселона',
-    link: './images/barselona.jpg'
-  },
-  {
-    name: 'Париж',
-    link: './images/paris.jpg'
-  }
-];
-
 const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
 
@@ -54,8 +24,9 @@ function createElementDomNode (item) {
   });
 
   newCard.querySelector('.element__image').addEventListener('click', function(evt){
-    imagePopup.querySelector('.image-popup__image').src = image.src;
-    imagePopup.querySelector('.image-popup__image').alt = image.alt;
+    const popupImage = imagePopup.querySelector('.image-popup__image');
+    popupImage.src = image.src;
+    popupImage.alt = image.alt;
     imagePopup.querySelector('.image-popup__caption').textContent = image.alt;
     togglePopup(imagePopup);
   });
@@ -87,7 +58,6 @@ const profileCloseButton = profilePopup.querySelector('.popup__close'); // кн�
 const profileTitle = document.querySelector('.profile__title'); // элемент в DOM, куда заносим имя
 const profileSubtitle = document.querySelector('.profile__subtitle'); // элементы DOM, куда заносим текст о себе
 
-
 const cardPopup = document.querySelector('.card-popup'); // card popup
 const cardCloseButton = cardPopup.querySelector('.popup__close'); // кнопка закрытия окна карточки
 
@@ -99,7 +69,6 @@ const formElement = document.querySelector('.form-profile');// Находим ф
 const nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
 const jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
 
-
 // Функция копирования текущих значений полей профиля со страницы сайта в поля формы
 function getFormCurrentParams() {
   nameInput.value = profileTitle.textContent;
@@ -109,41 +78,50 @@ function getFormCurrentParams() {
 // Функция открытия popup окон
 function togglePopup(selectPopup) {
   selectPopup.classList.toggle('popup_opened');
-  cardTitle.value = '';
-  cardLink.value = '';
+}
+
+// Функция popup окна с редактированием профиля
+function toggleEditFormPopup(selectPopup) {
+  togglePopup(selectPopup);
   // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup profile
   if (profilePopup.classList.contains('popup_opened')) {
     getFormCurrentParams();
   }
 }
 
-// Функция обработки формы редактирования профиля
-function formSubmitHandler (evt) {
+// Функция popup окна с добавлением карточки
+function toggleAddCardPopup(selectPopup) {
+  cardTitle.value = '';
+  cardLink.value = '';
+  togglePopup(selectPopup);
+}
+
+// Handler формы редактирования профиля
+function editProfileFormSubmitHandler (evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   togglePopup(profilePopup);
 }
 
-//Функция обработки формы добавления новой карточки
-function formCardHandler (evt) {
+// Handler  формы добавления новой карточки
+function addCardFormSubmitHandler (evt) {
   evt.preventDefault();
   const newCard =  createElementDomNode ({name: cardTitle.value, link: cardLink.value});
   elementsContainer.prepend(newCard);
   togglePopup(cardPopup);
 }
 
+profileEditButton.addEventListener('click', function() {toggleEditFormPopup(profilePopup)}); // Обработчик клика на кнопку "Изменить окно профиля"
+profileCloseButton.addEventListener('click', function() {toggleEditFormPopup(profilePopup)}); // Обработчик клика на кнопку "Закрыть окно профиля"
 
-profileEditButton.addEventListener('click', function() {togglePopup(profilePopup)}); // Обработчик клика на кнопку "Изменить окно профиля"
-profileCloseButton.addEventListener('click', function() {togglePopup(profilePopup)}); // Обработчик клика на кнопку "Закрыть окно профиля"
-
-cardAddButton.addEventListener('click', function() {togglePopup(cardPopup)}); // Обработчик клика на кнопку "Изменить окно карточки"
-cardCloseButton.addEventListener('click', function() {togglePopup(cardPopup)}); // Обработчик клика на кнопку "Закрыть окно карточки"
+cardAddButton.addEventListener('click', function() {toggleAddCardPopup(cardPopup)}); // Обработчик клика на кнопку "Изменить окно карточки"
+cardCloseButton.addEventListener('click', function() {toggleAddCardPopup(cardPopup)}); // Обработчик клика на кнопку "Закрыть окно карточки"
 
 imageCloseButton.addEventListener('click', function() {togglePopup(imagePopup)}); // Обработчик клика на кнопку "Закрыть окно изображения"
 
-formElement.addEventListener('submit', formSubmitHandler); // Обработчик отправки формы
-formCard.addEventListener('submit', formCardHandler); // Обработчик формы добавления новой карточки
+formElement.addEventListener('submit', editProfileFormSubmitHandler); // Обработчик отправки формы
+formCard.addEventListener('submit', addCardFormSubmitHandler); // Обработчик формы добавления новой карточки
 
 
 
