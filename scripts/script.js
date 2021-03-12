@@ -2,7 +2,9 @@ const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
 
 const imagePopup = document.querySelector('.image-popup'); // image popup
+const popupImage = imagePopup.querySelector('.image-popup__image'); // Изображение в popup
 const imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
+
 
 
 // Находит template и клонирует его код в новый элемент, вставляет данные из исходного массива элементов
@@ -23,8 +25,7 @@ function createElementDomNode (item) {
     evt.target.closest('.elements__item').remove();
   });
 
-  newCard.querySelector('.element__image').addEventListener('click', function(evt){
-    const popupImage = imagePopup.querySelector('.image-popup__image');
+  image.addEventListener('click', function(evt){
     popupImage.src = image.src;
     popupImage.alt = image.alt;
     imagePopup.querySelector('.image-popup__caption').textContent = image.alt;
