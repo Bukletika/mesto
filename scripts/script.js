@@ -51,6 +51,9 @@ renderList();
 
 
 // ОБРАБОТКА ОКОН POPUP
+const popupWindows  = document.querySelectorAll('.popup');
+const popupContainers = document.querySelectorAll('.popup__container');
+
 const profileEditButton = document.querySelector('#profile-edit'); // кнопка вызова окна редактирования профиля
 const cardAddButton = document.querySelector('#card-add'); // кнопка вызова окна добавления новой карточки
 
@@ -81,6 +84,7 @@ function togglePopup(selectPopup) {
   selectPopup.classList.toggle('popup_opened');
 }
 
+
 // Функция popup окна с редактированием профиля
 function toggleEditFormPopup(selectPopup) {
   togglePopup(selectPopup);
@@ -96,6 +100,27 @@ function toggleAddCardPopup(selectPopup) {
   cardLink.value = '';
   togglePopup(selectPopup);
 }
+
+// Закрытие popup окна по клику на затемненную область или ESC
+popupWindows.forEach(element => {
+  element.addEventListener('click', function(evt){
+    togglePopup(evt.target);
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if(evt.key === 'Escape' && element.classList.contains('popup_opened')){
+      togglePopup(element);
+    }
+  });
+
+});
+
+popupContainers.forEach(element => {
+  element.addEventListener('click', function (evt) {
+    evt.stopPropagation();
+  });
+});
+
 
 // Handler формы редактирования профиля
 function editProfileFormSubmitHandler (evt) {
