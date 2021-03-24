@@ -12,34 +12,26 @@
 <body class="page">
   <div class="page__container">
     <header class="header">
-
       <div class="header__logo">
         <a class="header__logo-link" href="#" target="_self" title="На главную">
           <img class="header__logo-img" src="./images/logo.svg" alt="Логотип Место">
         </a>
       </div>
-
     </header>
 
     <main class="content">
       <section class="profile">
-
         <img class="profile__img" src="./images/profile.jpg" alt="Аватар пользователя">
-
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <p class="profile__subtitle">Исследователь океана</p>
           <button class="profile__edit-button" id="profile-edit" type="button" title="Редактировать профиль"></button>
         </div>
-
         <button class="profile__add-button" id="card-add" type="button" title="Добавить карточку"></button>
-
       </section>
 
       <section class="elements">
-
         <ul class="elements__list"></ul>
-
       </section>
 
     </main>
@@ -50,67 +42,58 @@
 
   </div>
 
-  <div class="popup profile-popup">
+  <div class="popup popup_type_profile">
     <div class="popup__container">
       <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
       <form class="form form-profile popup__form" name="edit-profile" novalidate>
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__author">
-
           <input class="form__item popup__input form__item_el_name" id="profile-name" name="profile-name" type="text" placeholder="Имя" minlength="2"  maxlength="40" required>
           <span id="profile-name-error" class="popup__error">Вы пропустили это поле</span>
-
-
           <input class="form__item popup__input form__item_el_about" id="profile-about" name="profile-about" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
           <span id="profile-about-error" class="popup__error"></span>
-
         </fieldset>
         <button class="form__button popup__button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="popup card-popup">
+  <div class="popup popup_type_card">
     <div class="popup__container">
       <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
       <form class="form form-card popup__form" name="edit-card" novalidate>
         <h2 class="form__heading">Новое место</h2>
         <fieldset class="form__card">
-
           <input class="form__item popup__input form__item_el_title" id="card-title" name="card-title" type="text" placeholder="Название" minlength="2" maxlength="30" required>
           <span id="card-title-error" class="popup__error"></span>
-
-
           <input class="form__item popup__input form__item_el_link" id="card-link" name="card-link" type="url" placeholder="Ссылка на картинку" required>
           <span id="card-link-error" class="popup__error"></span>
-
         </fieldset>
         <button class="form__button popup__button" type="submit">Создать</button>
       </form>
     </div>
   </div>
 
-  <div class="popup image-popup">
+  <div class="popup popup_type_image">
     <div class="popup__container popup__container_width_full">
       <button class="popup__close" type="button"><img class="popup__close-img" src="./images/close.svg" alt="Закрыть окно"></button>
-
-      <figure class="image-popup__figure">
-        <figcaption class="image-popup__caption"></figcaption>
+      <figure class="popup__figure">
+        <figcaption class="popup__figcaption"></figcaption>
       </figure>
-
     </div>
   </div>
 
   <template class="template">
     <li class="elements__item element">
-      <button class="element__trash"></button>
+      <button class="element__trash" aria-label="Удалить" title="Удалить"></button>
       <img class="element__image">
       <div class="element__info">
         <h2 class="element__title"></h2>
-        <button class="element__like" type="button"></button>
+        <button class="element__like" type="button" aria-label="Нравится" title="Нравится"></button>
       </div>
     </li>
   </template>
+
   <script src="./scripts/initial-сards.js"></script>
   <script src="./scripts/script.js"></script>
   <script src="./scripts/validate.js"></script>
