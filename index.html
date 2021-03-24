@@ -56,14 +56,14 @@
       <form class="form form-profile popup__form" name="edit-profile" novalidate>
         <h2 class="form__heading">Редактировать профиль</h2>
         <fieldset class="form__author">
-          <label class="form__field">
-            <input class="form__item popup__input form__item_el_name" id="profile-name" name="profile-name" type="text" placeholder="Имя" minlength="2"  maxlength="40" required>
-            <span id="profile-name-error" class="popup__error">Вы пропустили это поле</span>
-          </label>
-          <label class="form__field">
-            <input class="form__item popup__input form__item_el_about" id="profile-about" name="profile-about" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
-            <span id="profile-about-error" class="popup__error"></span>
-          </label>
+
+          <input class="form__item popup__input form__item_el_name" id="profile-name" name="profile-name" type="text" placeholder="Имя" minlength="2"  maxlength="40" required>
+          <span id="profile-name-error" class="popup__error">Вы пропустили это поле</span>
+
+
+          <input class="form__item popup__input form__item_el_about" id="profile-about" name="profile-about" type="text" placeholder="О себе" minlength="2" maxlength="200" required>
+          <span id="profile-about-error" class="popup__error"></span>
+
         </fieldset>
         <button class="form__button popup__button" type="submit">Сохранить</button>
       </form>
@@ -76,14 +76,14 @@
       <form class="form form-card popup__form" name="edit-card" novalidate>
         <h2 class="form__heading">Новое место</h2>
         <fieldset class="form__card">
-          <label class="form__field">
-            <input class="form__item popup__input form__item_el_title" id="card-title" name="card-title" type="text" placeholder="Название" minlength="2" maxlength="30" required>
-            <span id="card-title-error" class="popup__error"></span>
-          </label>
-          <label class="form__field">
-            <input class="form__item popup__input form__item_el_link" id="card-link" name="card-link" type="url" placeholder="Ссылка на картинку" required>
-            <span id="card-link-error" class="popup__error"></span>
-          </label>
+
+          <input class="form__item popup__input form__item_el_title" id="card-title" name="card-title" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <span id="card-title-error" class="popup__error"></span>
+
+
+          <input class="form__item popup__input form__item_el_link" id="card-link" name="card-link" type="url" placeholder="Ссылка на картинку" required>
+          <span id="card-link-error" class="popup__error"></span>
+
         </fieldset>
         <button class="form__button popup__button" type="submit">Создать</button>
       </form>

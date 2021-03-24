@@ -1,5 +1,5 @@
 // Функция проверки, все ли поля в форме пустые
-const allInputsEmpty = (inputList) => {
+const getInputsEmpty = (inputList) => {
   // Если true - все поля пустые
   return !inputList.some(inputElement => { return inputElement.value.length > 0});
 };
@@ -16,7 +16,7 @@ const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
 
   // Если хотя бы один инпут не валиден, то кнопку отключаем
 
-  if (hasInvalidInput(inputList) || allInputsEmpty(inputList)) {
+  if (hasInvalidInput(inputList) || getInputsEmpty(inputList)) {
 
       buttonElement.classList.add('popup__button_disabled');
       buttonElement.setAttribute('disabled', true);
@@ -27,7 +27,8 @@ const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
 
 };
 
-// 4.f Функция для отображения ошибки инпута
+
+// Функция для отображения ошибки инпута
 const showInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
 
   // Найдем span для вывода ошибки
@@ -43,7 +44,7 @@ const showInputError = (formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.classList.add(errorClass);
 };
 
-// 5.f Функция для отключения ошибки инпута
+// Функция для отключения ошибки инпута
 const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
   // Найдем span для вывода ошибки
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -63,10 +64,10 @@ const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) 
 // Функция проверки инпута
 const checkInput = (formElement, inputElement, inputErrorClass, errorClass) => {
   if (inputElement.validity.valid) {
-      // 5.a Убрать подкрашивание красным и убрать ошибку
+      // Убрать подкрашивание красным и убрать ошибку
       hideInputError(formElement, inputElement, inputErrorClass, errorClass);
   } else {
-      // 4.a Подкрасить поле красным и вывести ошибку
+      // Подкрасить поле красным и вывести ошибку
       showInputError(formElement, inputElement, inputErrorClass, errorClass);
   }
 };
@@ -88,10 +89,10 @@ const setInputListeners = (formElement, inputSelector, submitButtonSelector, ina
     inputElement => {
       // Вешаем слушатель на инпут
       inputElement.addEventListener('input', () => {
-          // 3.a Проверить состояние поля (валидно ли оно?)
+          // Проверить состояние поля (валидно ли оно?)
           checkInput(formElement, inputElement, inputErrorClass, errorClass);
 
-          // 6.a Переключить состояние кнопки
+          // Переключить состояние кнопки
           toggleButtonState(inputList, buttonElement, inactiveButtonClass);
 
       });
