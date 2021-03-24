@@ -15,18 +15,15 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
 
   // Если хотя бы один инпут не валиден, то кнопку отключаем
-
   if (hasInvalidInput(inputList) || getInputsEmpty(inputList)) {
-
-      buttonElement.classList.add('popup__button_disabled');
-      buttonElement.setAttribute('disabled', true);
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
   }else{
-      buttonElement.classList.remove(inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
   }
 
 };
-
 
 // Функция для отображения ошибки инпута
 const showInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
@@ -77,12 +74,11 @@ const setInputListeners = (formElement, inputSelector, submitButtonSelector, ina
 
   // Получим список полей формы
   const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-
   // Найдем кнопку отправки данных в форме
   const buttonElement = formElement.querySelector(submitButtonSelector);
 
   // Отключить активность кнопки при загрузке страницы
-  toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+  //toggleButtonState(inputList, buttonElement, inactiveButtonClass);
 
   // Для каждого поля из списка полей формы мы будем выполнять действия
   inputList.forEach(
@@ -101,6 +97,8 @@ const setInputListeners = (formElement, inputSelector, submitButtonSelector, ina
 
 };
 
+
+
 // Функция валидации всех форм на странице
 const enableValidation = ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
   const formList = Array.from(document.querySelectorAll(formSelector));
@@ -117,7 +115,6 @@ const enableValidation = ({formSelector, inputSelector, submitButtonSelector, in
     }
   );
 }
-
 
 // Вызов функции валидации всех форм на странице
 enableValidation({
