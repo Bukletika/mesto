@@ -84,6 +84,7 @@ function togglePopup(selectPopup) {
   selectPopup.classList.toggle('popup_opened');
 }
 
+
 // Функция popup окна с редактированием профиля
 function toggleEditFormPopup(selectPopup) {
   togglePopup(selectPopup);
