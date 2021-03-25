@@ -82,7 +82,8 @@ function getFormCurrentParams() {
 }
 
 // Функция отключения popup окна по ESC
-const handleRemovePopupByEsc = function (evt, selectPopup) {
+const handleRemovePopupByEsc = function (evt) {
+  const selectPopup = document.querySelector('.popup_opened');
   if(evt.key === 'Escape'){
     closePopup(selectPopup);
   }
@@ -91,17 +92,13 @@ const handleRemovePopupByEsc = function (evt, selectPopup) {
 // Функция открытия popup окон
 function openPopup(selectPopup) {
   selectPopup.classList.add('popup_opened');
-  document.addEventListener('keydown', function (evt) {
-    handleRemovePopupByEsc(evt, selectPopup);
-  });
+  document.addEventListener('keydown', handleRemovePopupByEsc);
 }
 
 // Функция закрытия popup окон
 function closePopup(selectPopup) {
   selectPopup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', function (evt) {
-    handleRemovePopupByEsc(evt, selectPopup);
-  });
+  document.removeEventListener('keydown', handleRemovePopupByEsc);
 }
 
 // Функция очистки ошибок инпутов при открытии формы
@@ -115,22 +112,19 @@ const clearFormInputs = (selectPopup) => {
   );
 
   const buttonElement = form.querySelector('.popup__button');
-  buttonElement.classList.add('popup__button_disabled');
-  buttonElement.setAttribute('disabled', true);
-
+  toggleButtonState(inputList, buttonElement, 'popup__button_disabled');
 }
 
 
 // Функция popup окна с редактированием профиля
 function openEditFormPopup(selectPopup) {
   openPopup(selectPopup);
+  formElement.reset();
+  clearFormInputs(selectPopup);
   // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup profile
   if (profilePopup.classList.contains('popup_opened')) {
     getFormCurrentParams();
   }
-
-  clearFormInputs(selectPopup);
-
 }
 
 // Функция popup окна с добавлением карточки
