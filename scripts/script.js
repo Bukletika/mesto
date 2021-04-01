@@ -10,14 +10,19 @@ const innerPopupImage = document.querySelector('.popup__image');
 
 
 // Находит template и клонирует его код в новый элемент, вставляет данные из исходного массива элементов
+/*
 function createElementDomNode (item) {
+
   const newCard = templateElement.content.cloneNode(true);
+
+
   const name = newCard.querySelector('.element__title');
   name.textContent = item.name;
 
   const image = newCard.querySelector('.element__image');
   image.src = item.link;
   image.alt = item.name;
+
 
   newCard.querySelector('.element__like').addEventListener('click', function(evt){
     evt.target.classList.toggle('element__like_active');
@@ -34,10 +39,24 @@ function createElementDomNode (item) {
     openPopup(imagePopup);
   });
 
+
+
   return newCard;
 }
+*/
 
 // получить результирующий html код для списка карточек
+const renderList = () => {
+  const result = initialCards.map(function(item){
+    const newElement = new Card(item, templateElement);
+    const resultElement = newElement.generateCard();
+
+    return resultElement;
+  });
+
+  elementsContainer.append(...result);
+}
+/*
 function renderList() {
  const result = initialCards.map(function(item){
   const newElement = createElementDomNode(item);
@@ -46,7 +65,7 @@ function renderList() {
 
  elementsContainer.append(...result);
 }
-
+*/
 renderList();
 //--------------------------------------------------------------------------------
 
@@ -159,8 +178,9 @@ function handleEditProfileFormSubmit (evt) {
 // Handler  формы добавления новой карточки
 function handleAddCardFormSubmit (evt) {
   evt.preventDefault();
-  const newCard =  createElementDomNode ({name: cardTitle.value, link: cardLink.value});
-  elementsContainer.prepend(newCard);
+  const newCard = new Card({name: cardTitle.value, link: cardLink.value}, templateElement);
+  const resultElement = newCard.generateCard();
+  elementsContainer.prepend(resultElement);
   closePopup(cardPopup);
 }
 
