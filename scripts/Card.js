@@ -1,3 +1,5 @@
+import {openPopup, innerPopupImage, imagePopup} from './index.js'
+
 class Card {
   constructor(data, templateElement) {
     this.name = data.name;
@@ -7,7 +9,6 @@ class Card {
 
   _getTemplate() {
     const newCard = this._templateElement.content.cloneNode(true);
-
     return newCard;
   }
 
@@ -24,7 +25,6 @@ class Card {
   }
 
   _setEventListeners() {
-
     this._element.querySelector('.element__like').addEventListener('click', (evt) => {
       evt.target.classList.toggle('element__like_active');
     });
@@ -34,14 +34,14 @@ class Card {
     });
 
     this._element.querySelector('.element__image').addEventListener('click', (evt) => {
-      innerPopupImage.src = image.src;
-      innerPopupImage.alt = image.alt;
-      imagePopup.querySelector('.popup__figcaption').textContent = image.alt;
+      innerPopupImage.src = this.link;
+      innerPopupImage.alt = this.name;
+      imagePopup.querySelector('.popup__figcaption').textContent = this.name;
       openPopup(imagePopup);
     });
 
   }
 
-
-
 }
+
+export default Card;
