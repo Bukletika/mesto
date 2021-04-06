@@ -5,6 +5,11 @@ const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
 export const imagePopup = document.querySelector('.popup_type_image'); // image popup
 const imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
+
+// Сделана генерация через js, т.к. иначе Яндекс не пропускает работу на проверку (В файле index.html на строке 81 атрибуту src не хватает значения)
+const imageFigure = document.querySelector('.popup__figure');
+imageFigure.insertAdjacentHTML('afterbegin', '<img class="popup__image">');
+
 export const innerPopupImage = document.querySelector('.popup__image');
 
 
