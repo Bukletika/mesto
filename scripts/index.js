@@ -3,19 +3,15 @@ import FormValidator from './FormValidator.js'
 
 const elementsContainer = document.querySelector('.elements__list');
 const templateElement = document.querySelector('.template');
-
 export const imagePopup = document.querySelector('.popup_type_image'); // image popup
 const imageCloseButton = imagePopup.querySelector('.popup__close'); // кнопка закрытия окна image popup
-
-const imageFigure = document.querySelector('.popup__figure');
-imageFigure.insertAdjacentHTML('afterbegin', '<img class="popup__image">');
 export const innerPopupImage = document.querySelector('.popup__image');
 
 
 // получить результирующий html код для списка карточек
 const renderList = () => {
   const result = initialCards.map(function(item){
-    const newElement = new Card(item, templateElement, innerPopupImage, imagePopup);
+    const newElement = new Card(item, templateElement);
     const resultElement = newElement.generateCard();
 
     return resultElement;
@@ -26,7 +22,6 @@ const renderList = () => {
 
 renderList();
 //--------------------------------------------------------------------------------
-
 
 
 // ОБРАБОТКА ОКОН POPUP
@@ -48,20 +43,15 @@ const formCard = document.querySelector('.form-card');// Находим форм
 const cardTitle = formCard.querySelector('.form__item_el_title');
 const cardLink = formCard.querySelector('.form__item_el_link');
 
-const formElement = document.querySelector('.form-profile');// Находим форму в DOM
-const nameInput = formElement.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
-const jobInput = formElement.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
+const formProfile = document.querySelector('.form-profile');// Находим форму в DOM
+const nameInput = formProfile.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
+const jobInput = formProfile.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
 
-const createValidateObj = (...args) => {
-  return new FormValidator (...args);
-}
+const formProfileValidator = new FormValidator(validationParams, formProfile);
+formProfileValidator.enableValidation();
+const formCardValidator = new FormValidator(validationParams, formCard);
+formCardValidator.enableValidation();
 
-const formList = Array.from(document.querySelectorAll('.popup__form'));
-formList.forEach(
-  formElement => {
-    createValidateObj(validationParams, formElement).enableValidation(validationParams, formElement);
-  }
-)
 
 // Функция копирования текущих значений полей профиля со страницы сайта в поля формы
 function getFormCurrentParams() {
@@ -71,8 +61,8 @@ function getFormCurrentParams() {
 
 // Функция отключения popup окна по ESC
 const handleRemovePopupByEsc = function (evt) {
-  const selectPopup = document.querySelector('.popup_opened');
   if(evt.key === 'Escape'){
+    const selectPopup = document.querySelector('.popup_opened');
     closePopup(selectPopup);
   }
 }
@@ -89,27 +79,11 @@ function closePopup(selectPopup) {
   document.removeEventListener('keydown', handleRemovePopupByEsc);
 }
 
-// Функция очистки ошибок инпутов при открытии формы
-const clearFormInputs = (selectPopup) => {
-  const form = selectPopup.querySelector('.form');
-  const inputList = Array.from(form.querySelectorAll('.popup__input'));
-  inputList.forEach(
-    inputElement => {
-      const validateForm = new FormValidator (validationParams);
-      createValidateObj(validationParams).getHideInputError(form, inputElement, 'popup__input_type_error', 'popup__error_visible');
-    }
-  );
-
-  const buttonElement = form.querySelector('.popup__button');
-  createValidateObj(validationParams).getToggleButtonState(inputList, buttonElement, 'popup__button_disabled');
-
-}
-
 // Функция popup окна с редактированием профиля
 function openEditFormPopup(selectPopup) {
   openPopup(selectPopup);
-  formElement.reset();
-  clearFormInputs(selectPopup);
+  formProfile.reset();
+  formProfileValidator.clearFormInputs();
   // Подставляем в форму текущие значения "имени" и "о себе" - запускаем только при открытии popup profile
   if (profilePopup.classList.contains('popup_opened')) {
     getFormCurrentParams();
@@ -120,7 +94,7 @@ function openEditFormPopup(selectPopup) {
 function openAddCardPopup(selectPopup) {
   formCard.reset();
   openPopup(selectPopup);
-  clearFormInputs(selectPopup);
+  formCardValidator.clearFormInputs();
 }
 
 // Закрытие popup окна по клику на затемненную область
@@ -161,8 +135,7 @@ cardCloseButton.addEventListener('click', function() {closePopup(cardPopup)}); /
 
 imageCloseButton.addEventListener('click', function() {closePopup(imagePopup)}); // Обработчик клика на кнопку "Закрыть окно изображения"
 
-formElement.addEventListener('submit', handleEditProfileFormSubmit); // Обработчик отправки формы
+formProfile.addEventListener('submit', handleEditProfileFormSubmit); // Обработчик отправки формы
 formCard.addEventListener('submit', handleAddCardFormSubmit); // Обработчик формы добавления новой карточки
-
 
 
