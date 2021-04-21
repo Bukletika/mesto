@@ -1,9 +1,8 @@
-import {openPopup, innerPopupImage, imagePopup} from './index.js'
-
 class Card {
-  constructor(data, templateElement) {
+  constructor({ data, handleCardClick }, templateElement) {
     this.name = data.name;
     this.link = data.link;
+    this.handleCardClick = handleCardClick;
     this._templateElement = templateElement;
   }
 
@@ -31,17 +30,11 @@ class Card {
   _setTrash = (evt) => {
     evt.target.closest('.elements__item').remove();
   }
-  _setPopupImage = () => {
-    innerPopupImage.src = this.link;
-    innerPopupImage.alt = this.name;
-    imagePopup.querySelector('.popup__figcaption').textContent = this.name;
-    openPopup(imagePopup);
-  }
 
   _setEventListeners() {
     this._element.querySelector('.element__like').addEventListener('click', this._setLike);
     this._element.querySelector('.element__trash').addEventListener('click', this._setTrash);
-    this._element.querySelector('.element__image').addEventListener('click', this._setPopupImage);
+    this._element.querySelector('.element__image').addEventListener('click', this.handleCardClick);
   }
 
 }
