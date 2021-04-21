@@ -64,9 +64,9 @@
       <form class="form form-card popup__form" name="edit-card" novalidate>
         <h2 class="form__heading">Новое место</h2>
         <fieldset class="form__card">
-          <input class="form__item popup__input form__item_el_title" id="card-title" name="card-title" type="text" placeholder="Название" minlength="2" maxlength="30" required>
+          <input class="form__item popup__input form__item_el_title" id="card-title" name="name" type="text" placeholder="Название" minlength="2" maxlength="30" required>
           <span id="card-title-error" class="popup__error"></span>
-          <input class="form__item popup__input form__item_el_link" id="card-link" name="card-link" type="url" placeholder="Ссылка на картинку" required>
+          <input class="form__item popup__input form__item_el_link" id="card-link" name="link" type="url" placeholder="Ссылка на картинку" required>
           <span id="card-link-error" class="popup__error"></span>
         </fieldset>
         <button class="form__button popup__button" type="submit">Создать</button>
@@ -95,7 +95,6 @@
     </li>
   </template>
 
-  <script src="./scripts/initial-params.js"></script>
-  <script type="module" src="./scripts/index.js"></script>
+  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
