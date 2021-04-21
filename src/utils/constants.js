@@ -1,28 +1,35 @@
 // Начальный массив с карточками
+import london from '../images/london.jpg'
+import newYork from '../images/newyork.jpg'
+import praha from '../images/praha.jpg'
+import venecia from '../images/venecia.jpg'
+import barselona from '../images/barselona.jpg'
+import paris from '../images/paris.jpg'
+
 export const initialCards = [
   {
     name: 'Лондон',
-    link: './images/london.jpg'
+    link: london
   },
   {
     name: 'Нью-Йорк',
-    link: './images/newyork.jpg'
+    link: newYork
   },
   {
     name: 'Прага',
-    link: './images/praha.jpg'
+    link: praha
   },
   {
     name: 'Венеция',
-    link: './images/venecia.jpg'
+    link: venecia
   },
   {
     name: 'Барселона',
-    link: './images/barselona.jpg'
+    link: barselona
   },
   {
     name: 'Париж',
-    link: './images/paris.jpg'
+    link: paris
   }
 ];
 
