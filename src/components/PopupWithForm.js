@@ -1,5 +1,4 @@
 import Popup from './Popup.js'
-import {formCardValidator} from '../pages/index.js'
 
 class PopupWithForm extends Popup {
   constructor(selectPopup, handleAddFormSubmit) {
@@ -24,8 +23,6 @@ class PopupWithForm extends Popup {
   open() {
     super.open();
     this._selectForm.reset();
-    this.setEventListeners();
-    formCardValidator.clearFormInputs();
   }
 
   setEventListeners(){

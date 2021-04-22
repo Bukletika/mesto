@@ -14,8 +14,8 @@ class PopupWithImage extends Popup {
     innerPopupImage.src = this._link;
     innerPopupImage.alt = this._name;
     this._selectPopup.querySelector('.popup__figcaption').textContent = this._name;
-    super.setEventListeners();
   }
+
 }
 
 export default PopupWithImage;

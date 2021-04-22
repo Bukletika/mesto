@@ -8,7 +8,7 @@ class Popup {
 
   open(){
     this._selectPopup.classList.add('popup_opened');
-    this.setEventListeners();
+    document.addEventListener('keydown',  this._closeByEsc);
   }
 
   close(){
@@ -23,10 +23,12 @@ class Popup {
   }
 
   setEventListeners(){
-    document.addEventListener('keydown',  this._closeByEsc)
     this._popupCloseButton.addEventListener('click', () => { this.close() });
-    this._selectPopup.addEventListener('click', this.close.bind(this));
-    this._popupContainer.addEventListener('click', function (evt) { evt.stopPropagation() });
+    this._selectPopup.addEventListener('click', (evt) => {
+      if(evt.target.classList.contains('popup_opened')) {
+        this.close()
+      }
+    });
   }
 
 }
