@@ -25,13 +25,15 @@ import UserInfo from '../components/UserInfo.js'
 
 const userParams = new UserInfo({profileTitle,profileSubtitle});
 
+// Создаем экземпляр Popup картинки
+const popupWithImage = new PopupWithImage(imagePopup);
+popupWithImage.setEventListeners();
+
 const cardList = new Section({
   data: initialCards,
   renderer: (item) => {
     const newElement = new Card({ data: item, handleCardClick: () => {
-      const popupWithImage = new PopupWithImage(imagePopup, item);
-      popupWithImage.setEventListeners();
-      popupWithImage.open();
+      popupWithImage.open(item);
     }} , templateElement);
 
     const resultElement = newElement.generateCard();
@@ -46,9 +48,7 @@ const newCardPopup = new PopupWithForm(cardPopup, (evt) => {
 
   const inputsData = newCardPopup.getInputValues();
   const newCard = new Card({ data: inputsData, handleCardClick: () => {
-    const popupWithImage = new PopupWithImage(imagePopup, inputsData);
-    popupWithImage.setEventListeners();
-    popupWithImage.open();
+    popupWithImage.open(inputsData);
   }} , templateElement).generateCard();
   cardList.addItem(newCard);
 
@@ -63,7 +63,10 @@ cardAddButton.addEventListener('click', function() {
 });
 
 const newProfilePopup = new PopupWithForm(profilePopup, (evt) => {
-  userParams.setUserInfo();
+  userParams.setUserInfo({
+    title: nameInput.value,
+    subtitle: jobInput.value
+  });
   newProfilePopup.close();
 });
 
@@ -75,6 +78,7 @@ profileEditButton.addEventListener('click', function() {
   newProfilePopup.open();
 
   const userData = userParams.getUserInfo();
+
   nameInput.value = userData.title;
   jobInput.value = userData.subtitle;
 
