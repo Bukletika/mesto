@@ -10,6 +10,8 @@ import {initialCards,
         profileSubtitle,
         cardPopup,
         formCard,
+        nameInput,
+        jobInput,
         formProfile} from '../utils/constants.js'
 
 import Card from '../components/Card.js'
@@ -28,6 +30,7 @@ const cardList = new Section({
   renderer: (item) => {
     const newElement = new Card({ data: item, handleCardClick: () => {
       const popupWithImage = new PopupWithImage(imagePopup, item);
+      popupWithImage.setEventListeners();
       popupWithImage.open();
     }} , templateElement);
 
@@ -42,27 +45,21 @@ const newCardPopup = new PopupWithForm(cardPopup, (evt) => {
   evt.preventDefault();
 
   const inputsData = newCardPopup.getInputValues();
-  const cardItem = new Section({
-    data: [inputsData],
-    renderer: (item) => {
-      const newElement = new Card({ data: item, handleCardClick: () => {
-        const popupWithImage = new PopupWithImage(imagePopup, item);
-        popupWithImage.open();
-      }} , templateElement);
-
-      const resultElement = newElement.generateCard();
-      cardItem.addItem(resultElement);
-    }
-  }, '.elements__list');
-
-  cardItem.renderItems();
+  const newCard = new Card({ data: inputsData, handleCardClick: () => {
+    const popupWithImage = new PopupWithImage(imagePopup, inputsData);
+    popupWithImage.setEventListeners();
+    popupWithImage.open();
+  }} , templateElement).generateCard();
+  cardList.addItem(newCard);
 
   newCardPopup.close();
 });
 
+newCardPopup.setEventListeners();
 
 cardAddButton.addEventListener('click', function() {
   newCardPopup.open();
+  formCardValidator.clearFormInputs();
 });
 
 const newProfilePopup = new PopupWithForm(profilePopup, (evt) => {
@@ -70,11 +67,17 @@ const newProfilePopup = new PopupWithForm(profilePopup, (evt) => {
   newProfilePopup.close();
 });
 
+newProfilePopup.setEventListeners();
+
 profileEditButton.addEventListener('click', function() {
   formProfile.reset();
   formProfileValidator.clearFormInputs();
-  newProfilePopup.open()
-  userParams.getUserInfo();
+  newProfilePopup.open();
+
+  const userData = userParams.getUserInfo();
+  nameInput.value = userData.title;
+  jobInput.value = userData.subtitle;
+
 });
 
 const formProfileValidator = new FormValidator(validationParams, formProfile);

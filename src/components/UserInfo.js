@@ -7,8 +7,11 @@ class UserInfo {
   }
 
   getUserInfo() {
-    nameInput.value = this._profileTitle.textContent;
-    jobInput.value = this._profileSubtitle.textContent;
+    const userData = {
+      title: this._profileTitle.textContent,
+      subtitle: this._profileSubtitle.textContent
+    }
+    return userData;
   }
 
   setUserInfo() {
