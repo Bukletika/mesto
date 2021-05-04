@@ -1,5 +1,5 @@
 class UserInfo {
-  constructor({profileTitle,profileSubtitle}) {
+  constructor({profileTitle, profileSubtitle}) {
     this._profileTitle = profileTitle;
     this._profileSubtitle = profileSubtitle;
   }
