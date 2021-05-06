@@ -3,8 +3,7 @@ import Popup from './Popup.js'
 class PopupWithSubmit extends Popup {
   constructor(selectPopup) {
     super(selectPopup);
-    this._selectPopup = selectPopup
-    this._selectForm = selectPopup.querySelector('.popup__form');
+    this._selectPopup = selectPopup;
   }
 
   setSubmitAction(action) {
