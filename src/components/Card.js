@@ -21,6 +21,7 @@ class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
+
     this._element.querySelector('.element__title').textContent = this.name;
     const image = this._element.querySelector('.element__image');
     image.src = this.link;
@@ -38,7 +39,6 @@ class Card {
 
     if(this._dataProfile) {
       this._dataProfile.then((result) => {
-
         if (this._owner._id !== result._id) {
           elemTrash.remove();
           elemTrash.classList.add('element__trash_type_disabled');
@@ -50,6 +50,11 @@ class Card {
           heart.classList.toggle('element__like_active')
         }
       })
+
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
+      })
+
     }
 
     return this._element;
