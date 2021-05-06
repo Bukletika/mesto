@@ -1,26 +1,24 @@
 import Popup from './Popup.js'
-import { api, trashSubmit } from '../pages/index.js'
 
 class PopupWithSubmit extends Popup {
   constructor(selectPopup) {
     super(selectPopup);
     this._selectPopup = selectPopup
+    this._selectForm = selectPopup.querySelector('.popup__form');
   }
 
-  _deleteCard(item){
-    api.deleteCard(item._id);
+  setSubmitAction(action) {
+    this._handleSubmitCallback = action;
   }
 
-  setEventListeners(item,trashButton){
+  setEventListeners() {
+    this._selectPopup.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._handleSubmitCallback();
+    });
     super.setEventListeners();
-
-    trashSubmit.addEventListener('click', () => {
-      this._deleteCard(item)
-      trashButton.closest('.elements__item').remove()
-      this.close()
-    }, {once: true})
-
   }
+
 
 }
 
