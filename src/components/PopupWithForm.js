@@ -17,12 +17,12 @@ class PopupWithForm extends Popup {
     return inputData;
   }
 
-  loadData() {
-    this._submitButton.textContent = 'Сохранение...';
+  loadData(buttonText = 'Сохранение...') {
+    this._submitButton.textContent = buttonText;
   }
 
-  endLoadData() {
-    this._submitButton.textContent = 'Сохранить';
+  endLoadData(buttonText = 'Сохранить') {
+    this._submitButton.textContent = buttonText;
   }
 
   get getInputValues() {

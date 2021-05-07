@@ -10,7 +10,6 @@ export const validationParams = {
 
 export const templateElement = document.querySelector('.template');
 export const imagePopup = document.querySelector('.popup_type_image'); // image popup
-export const innerPopupImage = document.querySelector('.popup__image');
 export const profileEditButton = document.querySelector('.profile__edit-button'); // кнопка вызова окна редактирования профиля
 export const cardAddButton = document.querySelector('.profile__add-button'); // кнопка вызова окна добавления новой карточки
 export const profilePopup = document.querySelector('.popup_type_profile'); // profile popup
@@ -24,5 +23,4 @@ export const formProfile = document.querySelector('.form-profile');// Наход
 export const formProfileImg = document.querySelector('.form-profile-img');// Находим форму в DOM
 export const nameInput = formProfile.querySelector('.form__item_el_name'); // Находим поле "Имя" формы в DOM
 export const jobInput = formProfile.querySelector('.form__item_el_about'); // Находим поле "О себе" формы в DOM
-export const avatarLink = formProfileImg.querySelector('.form__item_el_avatar-link');
 

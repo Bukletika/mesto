@@ -1,20 +1,25 @@
 class UserInfo {
-  constructor({profileTitle, profileSubtitle}) {
+  constructor({profileTitle, profileSubtitle, profileAvatar}) {
     this._profileTitle = profileTitle;
     this._profileSubtitle = profileSubtitle;
+    this._profileAvatar = profileAvatar;
   }
 
   getUserInfo() {
     const userData = {
-      title: this._profileTitle.textContent,
-      subtitle: this._profileSubtitle.textContent
+      name: this._profileTitle.textContent,
+      about: this._profileSubtitle.textContent,
     }
     return userData;
   }
 
   setUserInfo(userData) {
-    this._profileTitle.textContent = userData.title;
-    this._profileSubtitle.textContent = userData.subtitle;
+    this._profileTitle.textContent = userData.name;
+    this._profileSubtitle.textContent = userData.about;
+  }
+
+  setUserAvatar(userAvatar) {
+    this._profileAvatar.src = userAvatar.avatar;
   }
 
 }

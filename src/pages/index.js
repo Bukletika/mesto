@@ -14,8 +14,7 @@ import {validationParams,
         nameInput,
         jobInput,
         formProfile,
-        formProfileImg,
-        avatarLink
+        formProfileImg
       } from '../utils/constants.js'
 
 import Api from '../components/Api.js'
@@ -31,7 +30,7 @@ const popupDeleteCard = document.querySelector('.popup_type_submit');
 const profileAvatar = document.querySelector('.profile__img');
 
 // Создать экземпляр класса для получения/отправки параметров пользователя
-const userParams = new UserInfo({profileTitle,profileSubtitle});
+const userParams = new UserInfo({profileTitle,profileSubtitle, profileAvatar});
 
 // Создать экземпляр api
 const api = new Api({
@@ -56,11 +55,61 @@ popupWithSubmit.setEventListeners();
 dataProfile.then((result) => {
 
   userParams.setUserInfo({
-    title: result.name,
-    subtitle: result.about
+    name: result.name,
+    about: result.about,
   });
 
-  profileAvatar.src = result.avatar;
+  userParams.setUserAvatar({
+    avatar: result.avatar
+  })
+
+  // Функция для создания новой карточки
+  const createCard = (item) => {
+    const newElement = new Card({
+
+      // Открыть попап с картинкой карточки
+      handleCardClick: () => { popupWithImage.open(item)},
+
+      // Удалить карточку после подтверждения
+      setTrash: (evt) => {
+        popupWithSubmit.open();
+        popupWithSubmit.setSubmitAction(() => {
+          api.deleteCard(item._id)
+            .then(() => {
+              newElement.removeCard();
+              popupWithSubmit.close();
+            })
+            .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
+        });
+      },
+
+      // Установить лайк/дизлайк
+      setLike: (evt) => {
+        if(newElement.isLiked()) {
+          api.dislikeCard(item._id)
+            .then((res) => {
+              newElement.updateLikes(res);
+            })
+            .catch(err =>  console.log(`Ошибка при отмене лайка: ${err}`))
+
+        }else{
+          api.likeCard(item._id)
+            .then((res) => {
+              newElement.updateLikes(res);
+            })
+          .catch(err => console.log(`Ошибка при добавлении лайка: ${err}`))
+        }
+      },
+      dataCard: item,
+      dataProfile
+      },
+      templateElement);
+
+      const generateCard = newElement.generateCard();
+
+      return generateCard;
+  }
+
 
   // Сгенерировать список карточек на странице html
   initialCards.then(initialCards => {
@@ -68,58 +117,15 @@ dataProfile.then((result) => {
     const cardList = new Section({
       data: initialCards,
       renderer: (item) => {
-        const newElement = new Card({
-
-          // Открыть попап с картинкой карточки
-          handleCardClick: () => { popupWithImage.open(item)},
-
-          // Удалить карточку после подтверждения
-          setTrash: (evt) => {
-            popupWithSubmit.open();
-            popupWithSubmit.setSubmitAction(() => {
-              api.deleteCard(item._id)
-                .then(() => {
-                  evt.target.closest('.elements__item').remove();
-                  popupWithSubmit.close();
-                })
-                .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
-            });
-          },
-
-          // Установить лайк/дизлайк
-          setLike: (evt) => {
-            if(evt.target.classList.contains('element__like_active')) {
-              api.dislikeCard(item._id)
-                .then(() => {
-                  evt.target.classList.remove('element__like_active');
-                  item.likes.length  = item.likes.length  - 1;
-                  evt.target.nextElementSibling.textContent = item.likes.length;
-                })
-              .catch(err =>  console.log(`Ошибка при отмене лайка: ${err}`))
-
-            }else{
-              api.likeCard(item._id)
-                .then(() => {
-                  evt.target.classList.add('element__like_active');
-                  item.likes.length  = item.likes.length  + 1;
-                  evt.target.nextElementSibling.textContent = item.likes.length;
-                })
-              .catch(err => console.log(`Ошибка при добавлении лайка: ${err}`))
-            }
-          },
-          dataCard: item,
-          dataProfile
-          },
-          templateElement
-          );
-
-        const resultElement = newElement.generateCard();
+        const resultElement = createCard(item);
         cardList.addItem(resultElement);
       }
     }, '.elements__list');
+
     cardList.renderItems();
 
     // Добавить новую карточку на страницу
+
     const newCardPopup = new PopupWithForm(cardPopup, (evt) => {
       evt.preventDefault();
 
@@ -127,63 +133,20 @@ dataProfile.then((result) => {
 
       const inputsData = newCardPopup.getInputValues();
 
-      const sendCard = api.addCard({
-        name: inputsData.name,
-        link: inputsData.link
-      })
+      const sendCard = api.addCard(inputsData)
 
       sendCard.then(function(response){
-
-        const newCard = new Card({
-
-          // Открыть попап с картинкой карточки
-          handleCardClick: () => {popupWithImage.open(inputsData)},
-
-          // Удалить карточку после подтверждения
-          setTrash: (evt) => {
-            popupWithSubmit.open();
-            popupWithSubmit.setSubmitAction(() => {
-              api.deleteCard(response._id)
-                .then(() => {
-                  evt.target.closest('.elements__item').remove()
-                  popupWithSubmit.close();
-                })
-                .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
-            });
-          },
-
-          // Установить лайк/дизлайк
-          setLike: (evt) => {
-            if(evt.target.classList.contains('element__like_active')) {
-              api.dislikeCard(response._id)
-              .then(() => {
-                evt.target.classList.remove('element__like_active');
-                response.likes.length  = response.likes.length  - 1;
-                evt.target.nextElementSibling.textContent = response.likes.length;
-              })
-              .catch(err => console.log(`Ошибка при отмене лайка: ${err}`))
-
-            }else{
-              api.likeCard(response._id)
-              .then(() => {
-                evt.target.classList.add('element__like_active');
-                response.likes.length  = response.likes.length  + 1;
-                evt.target.nextElementSibling.textContent = response.likes.length;
-              })
-              .catch(err => console.log(`Ошибка при добавлении лайка: ${err}`))
-            }
-          },
-          dataCard: inputsData
-        } , templateElement).generateCard();
-      cardList.addItem(newCard);
-
+        const newCard = createCard(response);
+        cardList.addItem(newCard);
+      })
+      .then(() => {
+        newCardPopup.close();
       })
       .catch((err) => {
         console.log(`Ошибка добавления карточки: ${err}`)
       })
       .finally(() => {
         newCardPopup.endLoadData();
-        newCardPopup.close();
       })
 
     });
@@ -196,28 +159,31 @@ dataProfile.then((result) => {
     });
 
   })
+
   .catch((err) => {
     console.log(`Ошибка генерации карточек: ${err}`)
   })
 
 })
+
 .catch((err) => {
   console.log(`Ошибка получения профиля: ${err}`)
 })
 
 const newProfilePopup = new PopupWithForm(profilePopup, (evt) => {
-  userParams.setUserInfo({
-    title: nameInput.value,
-    subtitle: jobInput.value
-  });
 
-  newProfilePopup.loadData()
+  newProfilePopup.loadData();
 
-  api.editProfile({name: nameInput.value, about: jobInput.value})
+  const userProfile = newProfilePopup.getInputValues();
+
+  api.editProfile(userProfile)
+  .then((res) => {
+    userParams.setUserInfo(res);
+    newProfilePopup.close();
+  })
   .catch(err => console.log(`Ошибка редактирования профиля: ${err}`))
   .finally(() => {
     newProfilePopup.endLoadData();
-    newProfilePopup.close();
   })
 
 });
@@ -231,36 +197,33 @@ profileEditButton.addEventListener('click', function() {
 
   const userData = userParams.getUserInfo();
 
-  nameInput.value = userData.title;
-  jobInput.value = userData.subtitle;
+  nameInput.value = userData.name;
+  jobInput.value = userData.about;
 
 });
 
 const editProfileImagePopup = new PopupWithForm(profileImagePopup, (evt) => {
-  editProfileImagePopup.loadData()
+  editProfileImagePopup.loadData();
 
-  api.editProfileAvatar({avatar: avatarLink.value})
+  const userAvatar = editProfileImagePopup.getInputValues();
+
+  api.editProfileAvatar(userAvatar)
+  .then((res) => {
+    userParams.setUserAvatar(res);
+    editProfileImagePopup.close();
+  })
   .catch(err => console.log(`Ошибка редактирования аватара: ${err}`))
   .finally(() => {
     editProfileImagePopup.endLoadData();
-    editProfileImagePopup.close();
   })
 
-  profileAvatar.src = avatarLink.value;
 });
 
 editProfileImagePopup.setEventListeners();
 
 profileImageEditButton.addEventListener('click', function() {
-  formProfileImg.reset();
   formProfileImageValidator.clearFormInputs();
   editProfileImagePopup.open();
-
-  dataProfile.then((result) => {
-    avatarLink.value = result.avatar;
-  })
-  .catch(err => console.log(`Ошибка: ${err}`))
-
 });
 
 // Валидация полей в формах
