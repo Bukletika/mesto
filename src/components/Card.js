@@ -14,7 +14,7 @@ class Card {
   }
 
   _getTemplate() {
-    const newCard = this._templateElement.content.cloneNode(true);
+    const newCard = this._templateElement.content.querySelector('.element').cloneNode(true);
     return newCard;
   }
 
@@ -41,12 +41,11 @@ class Card {
       this._dataProfile.then((result) => {
         if (this._owner._id !== result._id) {
           elemTrash.remove();
-          elemTrash.classList.add('element__trash_type_disabled');
         }
-        const needle = this.likes.some(function(item) {
-          return item._id == result._id;
+        const isLiked = this.likes.some(function(item) {
+          return item._id === result._id;
         });
-        if(needle) {
+        if(isLiked) {
           heart.classList.toggle('element__like_active')
         }
       })
@@ -58,6 +57,21 @@ class Card {
     }
 
     return this._element;
+  }
+
+  removeCard() {
+    this._element.remove()
+  }
+
+  isLiked() {
+    if(this._element.querySelector('.element__like').classList.contains('element__like_active')) {
+      return true;
+    }
+  }
+
+  updateLikes(res) {
+    this._element.querySelector('.element__like').classList.toggle('element__like_active');
+    this._element.querySelector('.element__like-counter').textContent = res.likes.length;
   }
 
   _setEventListeners() {
