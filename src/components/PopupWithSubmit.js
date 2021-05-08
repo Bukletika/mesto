@@ -3,6 +3,7 @@ import Popup from './Popup.js'
 class PopupWithSubmit extends Popup {
   constructor(selectPopup) {
     super(selectPopup);
+    this._submitButton = selectPopup.querySelector('.popup__button');
   }
 
   setSubmitAction(action) {
@@ -17,6 +18,13 @@ class PopupWithSubmit extends Popup {
     super.setEventListeners();
   }
 
+  loadData(buttonText = 'Удаление...') {
+    this._submitButton.textContent = buttonText;
+  }
+
+  endLoadData(buttonText = 'Да') {
+    this._submitButton.textContent = buttonText;
+  }
 
 }
 
