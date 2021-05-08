@@ -74,12 +74,16 @@ dataProfile.then((result) => {
       setTrash: (evt) => {
         popupWithSubmit.open();
         popupWithSubmit.setSubmitAction(() => {
+          popupWithSubmit.loadData();
           api.deleteCard(item._id)
             .then(() => {
               newElement.removeCard();
               popupWithSubmit.close();
             })
             .catch(err => console.log(`Ошибка при удалении карточки: ${err}`))
+            .finally(() => {
+              popupWithSubmit.endLoadData();
+            })
         });
       },
 
@@ -191,15 +195,11 @@ const newProfilePopup = new PopupWithForm(profilePopup, (evt) => {
 newProfilePopup.setEventListeners();
 
 profileEditButton.addEventListener('click', function() {
-  formProfile.reset();
-  formProfileValidator.clearFormInputs();
   newProfilePopup.open();
-
+  formProfileValidator.clearFormInputs();
   const userData = userParams.getUserInfo();
-
   nameInput.value = userData.name;
   jobInput.value = userData.about;
-
 });
 
 const editProfileImagePopup = new PopupWithForm(profileImagePopup, (evt) => {
